@@ -5,7 +5,8 @@ const { productsActions } = actionTypes;
 const INITIAL_STATE = {
   products: null,
   selectedProducts: [],
-  isFetching: false
+  isFetching: false,
+  showOnlyDifferences: false
 };
 
 export default function productsReducer(state = INITIAL_STATE, action) {
@@ -34,6 +35,9 @@ export default function productsReducer(state = INITIAL_STATE, action) {
       selectedProducts.splice(productIndex, 1);
       return { ...state, selectedProducts };
     }
+
+    case productsActions.TOGGLE_SHOW_ONLY_DIFFERENCES:
+      return { ...state, showOnlyDifferences: action.payload };
 
     default:
       return state;

@@ -11,10 +11,14 @@ const SummaryItem = ({
 }) => {
   return (
     <>
-      {selectedProducts.map(product => {
+      {selectedProducts.map((product, index) => {
         if (summary === "images") {
+          // {
+          //   /* no id is present to provide key */
+          // }
+
           return (
-            <td>
+            <td key={index}>
               <img
                 className="close-icon"
                 src={closeIcon}
@@ -31,13 +35,14 @@ const SummaryItem = ({
         } else {
           return (
             <td>
-              {Object.keys(summaryObj[product]).map(value => {
+              {Object.keys(summaryObj[product]).map((value, index) => {
                 return (
                   <span
+                    key={index}
                     className={`${value === "price" ? "price" : ""} ${
                       value === "totalDiscount" ? "discount" : ""
                     }`}
-                  >{`${summaryObj[product][value]} ${
+                  >{`${summaryObj[product][value] || ""} ${
                     value === "totalDiscount" ? "% off" : ""
                   }`}</span>
                 );
@@ -50,7 +55,9 @@ const SummaryItem = ({
   );
 };
 
-const mapStateToProps = store => ({});
+const mapStateToProps = store => ({
+  selectedProducts: store.products.selectedProducts
+});
 
 const mapDispatchToProps = dispatch => ({
   removeProduct: product => dispatch(removeProduct(product))

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchProducts } from "../actions/productsActions";
 import Features from "../components/Features";
 import CompareSummary from "../components/CompareSummary";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 class CompareProducts extends Component {
   componentDidMount() {
@@ -14,24 +15,27 @@ class CompareProducts extends Component {
   };
 
   render() {
-    const { products, selectedProducts } = this.props;
-    console.log("products ", products);
+    const { products, isFetching, selectedProducts } = this.props;
     return (
       <>
-        <table>
-          {products && (
-            <>
-              <CompareSummary
-                compareSummary={products.compareSummary}
-                selectedProducts={selectedProducts}
-              />
-              <Features
-                features={products.featuresList}
-                selectedProducts={selectedProducts}
-              />
-            </>
-          )}
-        </table>
+        {isFetching || !products ? (
+          <LoadingIndicator />
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th className="header">
+                  <h1>Compare</h1>{" "}
+                  <div>{`${selectedProducts.length} items selected`}</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <CompareSummary compareSummary={products.compareSummary} />
+              <Features features={products.featuresList} />
+            </tbody>
+          </table>
+        )}
       </>
     );
   }
@@ -39,8 +43,8 @@ class CompareProducts extends Component {
 
 const mapStateToProps = store => ({
   products: store.products.products,
-  selectedProducts: store.products.selectedProducts,
-  isFetching: store.products.isFetching
+  isFetching: store.products.isFetching,
+  selectedProducts: store.products.selectedProducts
 });
 
 const mapDispatchToProps = dispatch => ({

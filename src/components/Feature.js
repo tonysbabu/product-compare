@@ -1,21 +1,32 @@
 import React from "react";
 import SubFeature from "./SubFeature";
+import { connect } from "react-redux";
+import PlaceHolderCells from "./PlaceHolderCells";
 
-export default function Feature({ selectedProducts, feature }) {
+const Feature = ({ selectedProducts, feature, index }) => {
   return (
     <>
-      <tr className="main-feature">
+      <tr className={`main-feature ${index === 0 ? "first" : ""}`}>
         <td>
           <span className="feature-title">{feature.title}</span>
         </td>
-        {selectedProducts.map(() => (
-          <td></td>
-        ))}
+        <PlaceHolderCells />
         <td></td>
       </tr>
-      {feature.features.map(feature => (
-        <SubFeature feature={feature} selectedProducts={selectedProducts} />
+      {/* no id is present to provide key */}
+      {feature.features.map((feature, index) => (
+        <SubFeature
+          key={index}
+          feature={feature}
+          selectedProducts={selectedProducts}
+        />
       ))}
     </>
   );
-}
+};
+
+const mapStateToProps = store => ({
+  selectedProducts: store.products.selectedProducts
+});
+
+export default connect(mapStateToProps)(Feature);

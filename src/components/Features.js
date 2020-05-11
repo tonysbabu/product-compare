@@ -1,11 +1,12 @@
 import React from "react";
 import Feature from "./Feature";
 
-export default function Features({ features, selectedProducts }) {
+export default function Features({ features }) {
   return (
     <>
-      {features.map(feature => (
-        <Feature feature={feature} selectedProducts={selectedProducts} />
+      {/* no id is present to provide key */}
+      {features.map((feature, index) => (
+        <Feature feature={feature} key={index} index={index} />
       ))}
     </>
   );

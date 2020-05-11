@@ -14,7 +14,10 @@ export const fetchProducts = () => async dispatch => {
       type: productsActions.SET_PRODUCTS,
       payload: response.data.products
     });
-    dispatch({ type: productsActions.FETCH_PRODUCTS_SUCCESS });
+    setTimeout(
+      () => dispatch({ type: productsActions.FETCH_PRODUCTS_SUCCESS }),
+      2000
+    );
   } catch (e) {
     console.log(e);
     dispatch({ type: productsActions.FETCH_PRODUCTS_FAILED });
@@ -30,3 +33,10 @@ export const removeProduct = product => ({
   type: productsActions.REMOVE_FROM_SELECTED_PRODUCTS,
   payload: product
 });
+
+export const toggleShowOnlyDifferences = () => (dispatch, getState) => {
+  dispatch({
+    type: productsActions.TOGGLE_SHOW_ONLY_DIFFERENCES,
+    payload: !getState().products.showOnlyDifferences
+  });
+};
