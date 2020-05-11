@@ -6,7 +6,6 @@ import logger from "redux-logger";
 
 import CompareProducts from "./containers/CompareProducts";
 import rootReducer from "./reducers";
-import logo from "./logo.svg";
 import "./App.scss";
 
 const store = createStore(rootReducer, applyMiddleware(logger, thunk));

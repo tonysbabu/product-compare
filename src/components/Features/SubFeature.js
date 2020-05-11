@@ -1,5 +1,5 @@
 import React from "react";
-import PlaceHolderCells from "./PlaceHolderCells";
+import PlaceHolderCells from "../PlaceHolderCells";
 import { connect } from "react-redux";
 
 const SubFeature = ({ selectedProducts, feature, showOnlyDifferences }) => {

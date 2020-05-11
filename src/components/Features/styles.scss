@@ -1,0 +1,15 @@
+.main-feature.first {
+    border-top: 2px solid gray;
+}
+
+.feature-title,.subfeature-title  {
+    font-weight: bolder;
+}
+
+.main-feature {
+    background: lightgray;
+   
+    td.no-border-cell:last-child {
+      border-right: 0;
+    }
+}

@@ -2,15 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import {
   selectProduct,
+  removeProduct,
   toggleShowOnlyDifferences
-} from "../actions/productsActions";
+} from "../../actions/productsActions";
 import SummaryItem from "./SummaryItem";
-import PlaceHolderCells from "./PlaceHolderCells";
+import PlaceHolderCells from "../PlaceHolderCells";
+import "./styles.scss";
 
 const CompareSummary = ({
   compareSummary,
   selectedProducts,
   selectProduct,
+  removeProduct,
   showOnlyDifferences,
   toggleShowOnlyDifferences
 }) => {
@@ -24,8 +27,10 @@ const CompareSummary = ({
             <SummaryItem
               summary={summary}
               summaryObj={compareSummary[summary]}
+              removeProduct={removeProduct}
+              selectedProducts={selectedProducts}
             />
-            <td></td>
+            {selectedProducts.length < 4 ? <td></td> : ""}
           </tr>
         </>
       ))}
@@ -49,24 +54,26 @@ const CompareSummary = ({
           )}
         </td>
         <PlaceHolderCells />
-        <td>
-          <select
-            className="select"
-            onChange={e => selectProduct(e.target.value)}
-          >
-            <option>Select a product</option>
-            {Object.keys(compareSummary.titles).map((title, index) => {
-              if (!selectedProducts.includes(title)) {
-                return (
-                  <option value={title} key={index}>
-                    {compareSummary.titles[title].title}
-                  </option>
-                );
-              }
-              return null;
-            })}
-          </select>
-        </td>
+        {selectedProducts.length < 4 ? (
+          <td>
+            <select
+              className="select"
+              onChange={e => selectProduct(e.target.value)}
+            >
+              <option>Select a product</option>
+              {Object.keys(compareSummary.titles).map((title, index) => {
+                if (!selectedProducts.includes(title)) {
+                  return (
+                    <option value={title} key={index}>
+                      {compareSummary.titles[title].title}
+                    </option>
+                  );
+                }
+                return null;
+              })}
+            </select>
+          </td>
+        ) : null}
       </tr>
     </>
   );
@@ -79,6 +86,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   selectProduct: product => dispatch(selectProduct(product)),
+  removeProduct: product => dispatch(removeProduct(product)),
   toggleShowOnlyDifferences: () => dispatch(toggleShowOnlyDifferences())
 });
 

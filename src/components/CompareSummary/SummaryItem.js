@@ -1,7 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
-import { removeProduct } from "../actions/productsActions";
-import closeIcon from "../assets/images/x-circle.svg";
+import closeIcon from "../../assets/images/x-circle.svg";
 
 const SummaryItem = ({
   selectedProducts,
@@ -55,12 +53,4 @@ const SummaryItem = ({
   );
 };
 
-const mapStateToProps = store => ({
-  selectedProducts: store.products.selectedProducts
-});
-
-const mapDispatchToProps = dispatch => ({
-  removeProduct: product => dispatch(removeProduct(product))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SummaryItem);
+export default SummaryItem;

@@ -1,7 +1,7 @@
 import React from "react";
 import SubFeature from "./SubFeature";
 import { connect } from "react-redux";
-import PlaceHolderCells from "./PlaceHolderCells";
+import PlaceHolderCells from "../PlaceHolderCells";
 
 const Feature = ({ selectedProducts, feature, index }) => {
   return (
@@ -11,7 +11,11 @@ const Feature = ({ selectedProducts, feature, index }) => {
           <span className="feature-title">{feature.title}</span>
         </td>
         <PlaceHolderCells />
-        <td></td>
+        {selectedProducts.length < 4 ? (
+          <td className="no-border-cell"></td>
+        ) : (
+          ""
+        )}
       </tr>
       {/* no id is present to provide key */}
       {feature.features.map((feature, index) => (
@@ -25,8 +29,4 @@ const Feature = ({ selectedProducts, feature, index }) => {
   );
 };
 
-const mapStateToProps = store => ({
-  selectedProducts: store.products.selectedProducts
-});
-
-export default connect(mapStateToProps)(Feature);
+export default Feature;

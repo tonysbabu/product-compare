@@ -21,20 +21,22 @@ class CompareProducts extends Component {
         {isFetching || !products ? (
           <LoadingIndicator />
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th className="header">
-                  <h1>Compare</h1>{" "}
-                  <div>{`${selectedProducts.length} items selected`}</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <CompareSummary compareSummary={products.compareSummary} />
-              <Features features={products.featuresList} />
-            </tbody>
-          </table>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th className="header">
+                    <h1>Compare</h1>{" "}
+                    <div>{`${selectedProducts.length} items selected`}</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <CompareSummary compareSummary={products.compareSummary} />
+                <Features features={products.featuresList} />
+              </tbody>
+            </table>
+          </div>
         )}
       </>
     );
